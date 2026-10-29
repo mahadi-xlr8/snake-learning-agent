@@ -10,4 +10,4 @@ def test_epsilon_decreases():
 
 
 def test_epsilon_has_minimum():
-    assert get_epsilon(1000) == 0.05
+    assert get_epsilon(1000, end=0.05, decay=500) == 0.05

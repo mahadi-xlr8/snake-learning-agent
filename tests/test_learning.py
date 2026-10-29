@@ -1,18 +1,15 @@
-import numpy as np
+import pytest
 
 from agent.learning import DQNTrainer
+from agent.state import get_state
+from game.snake_game import SnakeGame
 
 
-def make_state():
-    board = np.zeros((5, 20, 20), dtype=np.float32)
-    direction = np.array([0, 1, 0, 0], dtype=np.float32)
-    return board, direction
+@pytest.mark.parametrize("model_type", ["cnn", "mlp"])
+def test_training_step(model_type):
+    trainer = DQNTrainer(model_type=model_type)
 
-
-def test_training_step():
-    trainer = DQNTrainer()
-
-    state = make_state()
+    state = get_state(SnakeGame(seed=1), model_type)
 
     batch = [
         (state, 0, 10.0, state, False),

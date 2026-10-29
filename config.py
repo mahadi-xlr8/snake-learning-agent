@@ -12,6 +12,9 @@ def env_bool(name, default=False):
     return value.strip().lower() in ("true", "1", "yes", "on")
 
 
+# Which network to train and evaluate: "mlp" or "cnn"
+MODEL_TYPE = os.getenv("MODEL_TYPE", "mlp").strip().lower()
+
 TRAIN_EPISODES = int(os.getenv("TRAIN_EPISODES", "500"))
 
 SHOW_GAME_WINDOW = env_bool("SHOW_GAME_WINDOW")

@@ -1,10 +1,11 @@
 import torch
 
-from agent.model import SnakeCNN
+from agent.features import FEATURE_SIZE
+from agent.model import build_model
 
 
-def test_model_output_shape():
-    model = SnakeCNN()
+def test_cnn_output_shape():
+    model = build_model("cnn")
 
     board = torch.zeros(1, 5, 20, 20)
     direction = torch.tensor(
@@ -13,5 +14,15 @@ def test_model_output_shape():
     )
 
     output = model(board, direction)
+
+    assert output.shape == (1, 3)
+
+
+def test_mlp_output_shape():
+    model = build_model("mlp")
+
+    features = torch.zeros(1, FEATURE_SIZE)
+
+    output = model(features)
 
     assert output.shape == (1, 3)
